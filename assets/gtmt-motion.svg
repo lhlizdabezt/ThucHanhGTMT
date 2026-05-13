@@ -23,7 +23,7 @@
       .mono { font: 700 16px Consolas, monospace; fill: #a7f3d0; }
       .card { fill: rgba(15,23,42,.62); stroke: rgba(255,255,255,.24); stroke-width: 1.2; }
       .label { font: 700 16px Segoe UI, Arial, sans-serif; fill: #ecfeff; }
-      .wire { stroke: #fbbf24; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 18 14; animation: dash 3s linear infinite; filter: url(#glow); }
+      .wire { fill: none; stroke: #fbbf24; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 18 14; animation: dash 3s linear infinite; filter: url(#glow); }
     </style>
   </defs>
   <rect width="1100" height="300" rx="26" fill="url(#bg)"/>
@@ -32,7 +32,8 @@
     <text x="0" y="68" class="title">AHT20 BLE Data Acquisition</text>
     <text x="0" y="104" class="sub">I2C Sensor - LCD - BLE Advertising - UART - SQLite Logger</text>
   </g>
-  <path class="wire" d="M106 218 C230 152 340 238 470 178 S680 108 810 180 S940 240 1010 166"/>
+  <path class="wire" d="M762 136 H842 Q862 136 862 154 H934 Q954 154 954 136 H1018"/>
+  <path class="wire" opacity=".48" d="M802 246 H888 Q908 246 908 260 H1016" style="animation-delay:.55s"/>
   <g style="animation: float 5.2s ease-in-out infinite">
     <rect x="712" y="46" width="118" height="58" rx="18" class="card"/>
     <text x="748" y="81" class="label">AHT20</text>
@@ -50,10 +51,10 @@
     <text x="944" y="213" class="label">SQLite</text>
   </g>
   <g fill="#a7f3d0" filter="url(#glow)">
-    <circle cx="106" cy="218" r="4" style="animation:pulse 2s ease-in-out infinite"/>
-    <circle cx="470" cy="178" r="4" style="animation:pulse 2.4s ease-in-out infinite"/>
-    <circle cx="810" cy="180" r="4" style="animation:pulse 2.8s ease-in-out infinite"/>
-    <circle cx="1010" cy="166" r="4" style="animation:pulse 2.2s ease-in-out infinite"/>
+    <circle cx="862" cy="154" r="4" style="animation:pulse 2s ease-in-out infinite"/>
+    <circle cx="954" cy="136" r="4" style="animation:pulse 2.4s ease-in-out infinite"/>
+    <circle cx="908" cy="260" r="4" style="animation:pulse 2.8s ease-in-out infinite"/>
+    <circle cx="1016" cy="260" r="4" style="animation:pulse 2.2s ease-in-out infinite"/>
   </g>
   <text x="70" y="258" class="sub">Embedded C + sensor telemetry + Windows logger + engineering evidence</text>
 </svg>

@@ -1,0 +1,28 @@
+# Build outputs
+**/GNU ARM*/
+**/*.o
+**/*.d
+**/*.map
+**/*.out
+**/*.axf
+**/*.bin
+**/*.hex
+**/*.s37
+**/*.gbl
+**/*.srec
+
+# Local SDK copies
+**/simplicity_sdk_*/
+
+# Local runtime artifacts
+**/*.exe
+**/*.dll
+**/*.db
+**/*.db-journal
+**/*.sqlite
+**/*.sqlite3
+
+# OS noise
+Thumbs.db
+Desktop.ini
+.DS_Store

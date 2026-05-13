@@ -1,0 +1,7 @@
+---
+workspace_name: "co len4"
+label: "co len4"
+project:
+- id: "main"
+  path: "gemini.slcp"
+  output: "."

@@ -1,0 +1,7 @@
+---
+workspace_name: "tai tao 2 code3"
+label: "tai tao 2 code3"
+project:
+- id: "main"
+  path: "LONG1.slcp"
+  output: "."

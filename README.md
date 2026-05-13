@@ -1,100 +1,90 @@
-# ThucHanhGTMT — AHT20 BLE Data Acquisition System
+# 🌡️ Thực Hành Giao Tiếp Máy Tính · AHT20 BLE Data Acquisition
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Inter&weight=700&size=24&pause=900&color=0F766E&center=true&vCenter=true&width=920&lines=HCMUS+FETEL+Data+Acquisition+Lab;Silicon+Labs+BLE+SoC+%7C+AHT20+%7C+LCD+%7C+UART;Windows+C+Logger+%7C+SQLite+Sensor+Database" alt="Animated ThucHanhGTMT project headline" />
+  <img src="assets/gtmt-motion.svg" alt="Banner chuyển động của lab Giao tiếp máy tính" />
 </p>
 
 <p align="center">
-  <a href="https://github.com/lhlizdabezt/ThucHanhGTMT/releases/tag/v1.0.0"><img src="https://img.shields.io/badge/Release-v1.0.0-0f766e?style=for-the-badge" alt="Release v1.0.0" /></a>
-  <img src="https://img.shields.io/badge/Embedded%20C-Silicon%20Labs%20BLE-2563eb?style=for-the-badge" alt="Embedded C Silicon Labs BLE" />
-  <img src="https://img.shields.io/badge/Sensor-AHT20%20I2C-D95319?style=for-the-badge" alt="AHT20 I2C sensor" />
-  <img src="https://img.shields.io/badge/PC%20Logger-Win32%20%2B%20SQLite-334155?style=for-the-badge" alt="Win32 SQLite logger" />
+  <a href="https://github.com/lhlizdabezt/ThucHanhGTMT/releases/latest"><img src="https://img.shields.io/github/v/release/lhlizdabezt/ThucHanhGTMT?style=for-the-badge&label=Release&color=0f766e" alt="Bản phát hành mới nhất" /></a>
+  <a href="https://github.com/lhlizdabezt/ThucHanhGTMT/tags"><img src="https://img.shields.io/github/v/tag/lhlizdabezt/ThucHanhGTMT?style=for-the-badge&label=Tag&color=2563eb" alt="Tag Git mới nhất" /></a>
+  <img src="https://img.shields.io/badge/BLE-Silicon%20Labs-0F4C81?style=for-the-badge" alt="Silicon Labs BLE" />
+  <img src="https://img.shields.io/badge/Sensor-AHT20-D95319?style=for-the-badge" alt="Cảm biến AHT20" />
+  <img src="https://img.shields.io/badge/Logger-Win32%20SQLite-334155?style=for-the-badge" alt="Win32 SQLite logger" />
 </p>
 
-This repository packages the source code, reports and presentation material for **Thực hành Giao tiếp máy tính và Thu nhận dữ liệu** at the Faculty of Electronics and Telecommunications, VNUHCM - University of Science.
+<p align="center">
+  <b>Repo lab Giao tiếp máy tính và Thu nhận dữ liệu</b> của <a href="https://github.com/lhlizdabezt">Lương Hải Long</a>. Hệ thống đọc nhiệt độ/độ ẩm từ AHT20 bằng firmware Silicon Labs BLE SoC, hiển thị LCD, phát BLE advertising, stream UART/VCOM và lưu log trên Windows bằng C + SQLite.
+</p>
 
-The main project is a **temperature and humidity acquisition system**: a Silicon Labs BLE SoC reads an AHT20 sensor over I2C, displays values locally on LCD, publishes compact temperature/humidity bytes through BLE advertising, streams UART/VCOM logs, and lets a Windows C application persist sensor rows into SQLite.
+---
 
-## Reviewer Snapshot
+## 🚀 Tóm tắt hệ thống
 
-| Signal | Evidence |
-| --- | --- |
-| Course / lab scope | Computer communication and data acquisition, HCMUS FETEL |
-| Embedded target | Silicon Labs Bluetooth SoC project generated for Simplicity Studio |
-| Sensor path | AHT20 over I2C, decoded as temperature and humidity |
-| Local output | LCD display update for temperature, humidity and sampling period |
-| Wireless output | BLE legacy advertising payload with BCD-encoded sensor values |
-| PC integration | Win32 serial port reader, `D:temp,hum` parser, SQLite `SensorLog` table |
-| Deliverables | Firmware source, PC logger source, project report, slides, BLE Mesh lab report |
+| Khối | Vai trò | Bằng chứng |
+| --- | --- | --- |
+| AHT20 | Cảm biến nhiệt độ và độ ẩm qua I2C | `aht20.c`, `aht20.h` |
+| Silicon Labs BLE SoC | Đọc cảm biến, cập nhật LCD, phát BLE, ghi UART/VCOM | `app.c`, `custom_adv.c`, `lcd_display.c` |
+| LCD | Hiển thị giá trị đo và chu kỳ lấy mẫu | Thư mục `image/` và helper LCD |
+| BLE advertising | Đưa dữ liệu cảm biến vào payload quảng bá | Hàm cập nhật advertising payload |
+| Windows logger | Đọc COM port, parse dòng `D:temp,hum`, ghi SQLite | `TEST.c`, `sqlite3.c`, `sqlite3.h` |
+| Báo cáo/slide | Giải thích mục tiêu, nguyên lý, kết quả và lab BLE Mesh | PDF, PPTX trong root repo |
 
-## System Architecture
+## 🧭 Luồng dữ liệu
 
 ```mermaid
 flowchart LR
-  A["AHT20 Sensor<br/>Temperature + Humidity"] -->|I2C| B["Silicon Labs BLE SoC<br/>Embedded C firmware"]
-  B --> C["LCD<br/>Local measurement display"]
-  B -->|BLE legacy advertising| D["BLE scanner / receiver<br/>Compact BCD payload"]
-  B -->|UART / VCOM<br/>D:temp,hum lines| E["Windows PC Logger<br/>C + Win32 API"]
-  E --> F["SQLite Database<br/>SensorLog table"]
-  B -. evidence .-> G["Project report + slides"]
-  E -. evidence .-> G
+  A["AHT20 Sensor"] --> B["I2C Driver"]
+  B --> C["BLE SoC Firmware"]
+  C --> D["LCD Display"]
+  C --> E["BLE Advertising"]
+  C --> F["UART VCOM"]
+  F --> G["Windows C Logger"]
+  G --> H["SQLite SensorLog"]
 ```
 
-## Repository Layout
+## 🖼️ Minh chứng trực quan
 
-| Path | Purpose |
+<p align="center">
+  <img src="LONG1_2-20260513T142225Z-3-001/LONG1_2/image/readme_img0.png" width="19%" alt="Ảnh minh chứng phần cứng 0" />
+  <img src="LONG1_2-20260513T142225Z-3-001/LONG1_2/image/readme_img1.png" width="19%" alt="Ảnh minh chứng phần cứng 1" />
+  <img src="LONG1_2-20260513T142225Z-3-001/LONG1_2/image/readme_img2.png" width="19%" alt="Ảnh minh chứng phần cứng 2" />
+  <img src="LONG1_2-20260513T142225Z-3-001/LONG1_2/image/readme_img3.png" width="19%" alt="Ảnh minh chứng phần cứng 3" />
+  <img src="LONG1_2-20260513T142225Z-3-001/LONG1_2/image/readme_img4.png" width="19%" alt="Ảnh minh chứng phần cứng 4" />
+</p>
+
+## 📂 Cấu trúc repo
+
+| Đường dẫn | Nội dung |
 | --- | --- |
-| `LONG1_2-20260513T142225Z-3-001/LONG1_2/` | Silicon Labs BLE firmware project with AHT20, LCD, BLE advertising and UART log logic. |
-| `LONG1_2-20260513T142225Z-3-001/LONG1_2/LONG1_2.slcp` | Main Simplicity Studio project file. |
-| `LONG1_2-20260513T142225Z-3-001/LONG1_2/app.c` | Application flow: timer-based sensor read, LCD update, BLE payload update and UART logging. |
-| `LONG1_2-20260513T142225Z-3-001/LONG1_2/aht20.c` | AHT20 sensor driver over I2C. |
-| `LONG1_2-20260513T142225Z-3-001/LONG1_2/lcd_display.c` | LCD rendering helper for measured values. |
-| `TH GTMT-20260513T142230Z-3-001/TH GTMT/TEST.c` | Windows C console logger for UART/VCOM input and SQLite persistence. |
-| `TH GTMT-20260513T142230Z-3-001/TH GTMT/sqlite3.c` | SQLite amalgamation used by the PC logger. |
-| `22207056_report_DoAn.pdf` | Final project report: temperature and humidity measurement system. |
-| `22207056_report_DoAn (2).pptx` | Project presentation deck. |
-| `22207056_report_lab6.pdf` | Lab 6 report: Bluetooth Low Energy Mesh. |
+| `LONG1_2-20260513T142225Z-3-001/LONG1_2/` | Project firmware Silicon Labs BLE SoC |
+| `LONG1_2-20260513T142225Z-3-001/LONG1_2/LONG1_2.slcp` | File project chính để mở bằng Simplicity Studio |
+| `LONG1_2-20260513T142225Z-3-001/LONG1_2/app.c` | Luồng ứng dụng: timer, đọc AHT20, LCD, BLE payload, UART log |
+| `LONG1_2-20260513T142225Z-3-001/LONG1_2/aht20.c` | Driver AHT20 qua I2C |
+| `LONG1_2-20260513T142225Z-3-001/LONG1_2/custom_adv.c` | Tạo payload BLE advertising tùy biến |
+| `LONG1_2-20260513T142225Z-3-001/LONG1_2/lcd_display.c` | Hàm hiển thị dữ liệu đo lên LCD |
+| `TH GTMT-20260513T142230Z-3-001/TH GTMT/TEST.c` | Logger Windows C đọc UART/VCOM và ghi SQLite |
+| `TH GTMT-20260513T142230Z-3-001/TH GTMT/sqlite3.c` | SQLite amalgamation dùng cho logger |
+| `22207056_report_DoAn.pdf` | Báo cáo đồ án đo nhiệt độ và độ ẩm |
+| `22207056_report_DoAn (2).pptx` | Slide thuyết trình đồ án |
+| `22207056_report_lab6.pdf` | Báo cáo lab BLE Mesh |
 
-## Firmware Highlights
+## ⚙️ Môi trường phát triển
 
-The embedded project opens from:
+| Mảng | Công cụ |
+| --- | --- |
+| Firmware | Simplicity Studio, Gecko/Simplicity SDK, GNU Arm Embedded Toolchain |
+| Phần cứng | Board Silicon Labs BLE SoC có VCOM/UART, cảm biến AHT20, LCD |
+| PC logger | Windows, GCC hoặc MinGW, SQLite amalgamation đã có trong repo |
+| Git Windows | Nên bật long paths vì project Silicon Labs có đường dẫn metadata rất dài |
 
-```text
-LONG1_2-20260513T142225Z-3-001/LONG1_2/LONG1_2.slcp
+Nếu clone trên Windows báo `Filename too long`, chạy:
+
+```powershell
+git config --global core.longpaths true
+git restore --source=HEAD :/
 ```
 
-Core implementation points:
-
-- `app_timer_start(...)` schedules periodic sensor acquisition.
-- `aht20_read(...)` returns temperature and humidity values from the AHT20.
-- `lcd_update(...)` refreshes local display lines for temperature, humidity and period.
-- `update_ble_payload(...)` constructs a 31-byte BLE advertising buffer with flags, device name and manufacturer-specific sensor bytes.
-- `app_log("D:%d.%d,%d.%d\r\n", ...)` emits UART/VCOM telemetry in a PC-friendly format.
-
-Expected development environment:
-
-- Simplicity Studio
-- Gecko SDK / Simplicity SDK compatible with the checked-in project
-- GNU Arm Embedded Toolchain
-- Silicon Labs BLE SoC board with VCOM/UART
-- AHT20 temperature-humidity sensor and LCD module
-
-## PC Logger
-
-The Windows logger source is:
-
-```text
-TH GTMT-20260513T142230Z-3-001/TH GTMT/TEST.c
-```
-
-It performs four reviewer-visible jobs:
-
-- Opens the configured COM port through the Win32 API.
-- Reads UART/VCOM bytes from the board.
-- Parses sensor lines that match `D:temp,hum`.
-- Inserts rows into SQLite table `SensorLog` with timestamp, temperature, humidity and period fields.
-
-Build on Windows with GCC:
+## 🛠️ Build logger Windows
 
 ```powershell
 cd "TH GTMT-20260513T142230Z-3-001\TH GTMT"
@@ -102,46 +92,43 @@ gcc TEST.c sqlite3.c -o App.exe
 .\App.exe
 ```
 
-Before running, update the COM port in `TEST.c`:
+Trước khi chạy, sửa COM port trong `TEST.c` theo cổng VCOM thực tế:
 
 ```c
 const char* COM_PORT_NAME = "\\\\.\\COM10";
 ```
 
-Replace `COM10` with the actual Silicon Labs VCOM port shown on the machine.
+## 🧪 Điểm kỹ thuật đáng xem
 
-## Clone Note For Windows
-
-The Silicon Labs project contains long generated metadata paths. If checkout fails on Windows with `Filename too long`, enable long paths for this local clone and retry checkout:
-
-```powershell
-git config core.longpaths true
-git checkout -f HEAD
-```
-
-## Reports And Presentation
-
-- `22207056_report_DoAn.pdf` documents objectives, system design, operating principle and results for the temperature/humidity measurement project.
-- `22207056_report_DoAn (2).pptx` is the project presentation deck.
-- `22207056_report_lab6.pdf` documents BLE Mesh practice, including student-ID transmission and LED/runtime status transfer.
-
-## Ownership
-
-| Field | Value |
+| File | Điểm nổi bật |
 | --- | --- |
-| Student | Lương Hải Long |
-| Student ID | 22207056 |
-| Class | 22DTV_CLC1 |
-| Major | Electronics and Telecommunications |
-| Faculty | Khoa Điện tử - Viễn thông |
-| University | Trường Đại học Khoa học Tự nhiên - ĐHQG TP.HCM |
-| Instructors | ThS. Đặng Tấn Phát, CN. Hồ Thanh Bảo |
-| Project title | Hệ thống đo nhiệt độ và độ ẩm |
+| `app.c` | Timer định kỳ, gọi driver cảm biến, cập nhật LCD, phát BLE và ghi log UART |
+| `aht20.c` | Trình tự đọc cảm biến qua I2C, xử lý dữ liệu nhiệt độ/độ ẩm |
+| `custom_adv.c` | Đóng gói dữ liệu cảm biến vào advertising payload |
+| `lcd_display.c` | Tách logic hiển thị để firmware dễ đọc hơn |
+| `TEST.c` | Win32 serial API, parser dòng dữ liệu và insert vào SQLite |
 
-## Release
+## 🏷️ Metadata đề xuất
 
-`v1.0.0` marks the first polished public release of the repository as a reviewable engineering artifact: firmware source, PC logger, report, slide deck, BLE Mesh lab report, repository description, topics and documentation are organized for HR screening and technical review.
+| Nhóm | Nội dung |
+| --- | --- |
+| Mô tả repo | Lab Giao tiếp máy tính HCMUS FETEL: đọc AHT20 trên Silicon Labs BLE SoC, hiển thị LCD, quảng bá BLE, stream UART/VCOM và ghi log Windows C/SQLite. |
+| Topics | `embedded-c`, `ble`, `bluetooth-low-energy`, `silicon-labs`, `aht20`, `i2c`, `lcd`, `uart`, `vcom`, `sqlite`, `win32`, `sensor-logging`, `data-acquisition`, `iot`, `electronics-engineering` |
+| Release | Release mới nhất ghi lại phiên bản public có README tiếng Việt, visual, hướng build, tag, topics và tài liệu đồ án |
 
-## Maintenance Notes
+## 👤 Thông tin tác giả
 
-This repository tracks source code, project configuration and required documentation. Generated runtime/build outputs such as `.exe`, `.dll`, `.db`, `.o`, `.map`, `.hex`, `.bin` and toolchain build directories should remain outside Git unless a future release explicitly needs binary artifacts.
+| Trường | Thông tin |
+| --- | --- |
+| Họ tên | **Lương Hải Long** |
+| MSSV | `22207056` |
+| Lớp | `22DTV_CLC1` |
+| Ngành | Điện tử Viễn thông |
+| Khoa | Điện tử - Viễn thông |
+| Trường | Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM |
+| GitHub | [github.com/lhlizdabezt](https://github.com/lhlizdabezt) |
+| LinkedIn | [linkedin.com/in/lhlizdabezt](https://www.linkedin.com/in/lhlizdabezt) |
+
+## 📌 Ghi chú bảo trì
+
+Repo ưu tiên lưu source, cấu hình project và tài liệu cần thiết. File build sinh ra như `.exe`, `.dll`, `.db`, `.o`, `.map`, `.hex`, `.bin` và thư mục output của toolchain nên để ngoài Git, trừ khi release tương lai cần đính kèm binary để đối chiếu.

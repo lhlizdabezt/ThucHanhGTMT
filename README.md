@@ -2,6 +2,8 @@
 
 <p align="center">
   <img src="assets/gtmt-motion.svg" alt="Banner chuyển động của lab Giao tiếp máy tính" />
+  <br />
+  <img src="assets/gtmt-data-flow.gif" width="760" alt="GIF luồng dữ liệu từ AHT20 qua BLE, UART và SQLite" />
 </p>
 
 <p align="center">
@@ -29,6 +31,16 @@
 | Windows logger | Đọc COM port, parse dòng `D:temp,hum`, ghi SQLite | `TEST.c`, `sqlite3.c`, `sqlite3.h` |
 | Báo cáo/slide | Giải thích mục tiêu, nguyên lý, kết quả và lab BLE Mesh | PDF, PPTX trong root repo |
 
+## 🎯 Đường kiểm tra nhanh cho HR và kỹ sư
+
+| Cần kiểm tra | Mở ở đâu | Tín hiệu kỹ thuật |
+| --- | --- | --- |
+| Firmware cảm biến | `LONG1_2-20260513T142225Z-3-001/LONG1_2/app.c` | Vòng lặp định kỳ, đọc AHT20, cập nhật LCD, phát BLE và ghi UART |
+| Driver ngoại vi | `aht20.c`, `lcd_display.c`, `custom_adv.c` | Tách driver I2C, hiển thị và advertising payload để dễ đọc review |
+| Logger máy tính | `TH GTMT-20260513T142230Z-3-001/TH GTMT/TEST.c` | Win32 serial API, parser `D:temp,hum`, insert SQLite `SensorLog` |
+| Tài liệu học thuật | `22207056_report_DoAn.pdf`, `22207056_report_lab6.pdf` | Có báo cáo đồ án, slide và lab BLE Mesh để đối chiếu code với thuyết minh |
+| Bản public GitHub | [release mới nhất](https://github.com/lhlizdabezt/ThucHanhGTMT/releases/latest) | Có tag, release, topic, README tiếng Việt, visual SVG/GIF và tài liệu đính kèm |
+
 ## 🧭 Luồng dữ liệu
 
 ```mermaid
@@ -43,6 +55,8 @@ flowchart LR
 ```
 
 ## 🖼️ Minh chứng trực quan
+
+GIF ở đầu README mô phỏng đường đi của dữ liệu đo: AHT20 tạo mẫu nhiệt độ/độ ẩm, firmware đóng gói BLE advertising, xuất UART/VCOM và logger Windows lưu vào SQLite. Các ảnh bên dưới là minh chứng phần cứng/hướng dẫn đi kèm trong project Silicon Labs.
 
 <p align="center">
   <img src="LONG1_2-20260513T142225Z-3-001/LONG1_2/image/readme_img0.png" width="19%" alt="Ảnh minh chứng phần cứng 0" />
@@ -114,7 +128,7 @@ const char* COM_PORT_NAME = "\\\\.\\COM10";
 | --- | --- |
 | Mô tả repo | Lab Giao tiếp máy tính HCMUS FETEL: đọc AHT20 trên Silicon Labs BLE SoC, hiển thị LCD, quảng bá BLE, stream UART/VCOM và ghi log Windows C/SQLite. |
 | Topics | `embedded-c`, `ble`, `bluetooth-low-energy`, `silicon-labs`, `aht20`, `i2c`, `lcd`, `uart`, `vcom`, `sqlite`, `win32`, `sensor-logging`, `data-acquisition`, `iot`, `electronics-engineering` |
-| Release | Release mới nhất ghi lại phiên bản public có README tiếng Việt, visual, hướng build, tag, topics và tài liệu đồ án |
+| Release | Release mới nhất ghi lại phiên bản public có README tiếng Việt, visual SVG/GIF, hướng build, tag, topics, source zip và tài liệu đồ án |
 
 ## 👤 Thông tin tác giả
 

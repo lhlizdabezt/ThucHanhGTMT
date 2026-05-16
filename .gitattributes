@@ -1,0 +1,17 @@
+*.md text eol=lf
+*.c text eol=lf
+*.h text eol=lf
+*.svg text eol=lf
+*.slcp text eol=lf
+*.xml text eol=lf
+
+*.gif binary
+*.png binary
+*.pdf binary
+*.pptx binary
+*.db binary
+*.exe binary
+*.dll binary
+*.o binary
+*.hex binary
+*.bin binary

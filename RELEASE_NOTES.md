@@ -1,17 +1,17 @@
-# v1.2.3 - Reviewer Documentation and English Safety Pass
+# v1.2.4 - Screenshot Evidence and Indoor Positioning Sync
 
 ## Scope
 
-This release refreshes the `ThucHanhGTMT` portfolio package with reviewer-ready English documentation, clearer run instructions, complete professional links and visual-safety checks for GitHub profile rendering.
+This release refreshes the `ThucHanhGTMT` portfolio package with the supplied project screenshots, clearer BLE RSSI indoor-positioning context and updated visual assets for GitHub review.
 
 ## Changes
 
-- Expanded the README with repository status, system flow, evidence map, local inspection steps, FAQ and contact/profile links.
-- Clarified the hardware and host dependencies for the Silicon Labs BLE SoC, AHT20 sensor, UART/VCOM path and Windows C/SQLite logger.
-- Kept SVG and GIF labels English-facing and ASCII-safe for GitHub README rendering.
-- Preserved the line-free visual policy: no moving connector-line, dashed-line, dotted-line or scan-line patterns.
-- Kept the project boundary explicit as an academic computer interfacing lab, not a production data-acquisition product.
+- Added nine project screenshots under `assets/evidence/` with English-safe filenames.
+- Expanded the README visual evidence section with firmware, UART/VCOM, SQLite, beacon placement, trilateration and Android BLE map proof points.
+- Updated the project scope to include BLE RSSI indoor-positioning evidence while keeping the coursework and prototype boundary explicit.
+- Refreshed the SVG and GIF summary assets with English, ASCII-safe labels.
+- Preserved the line-free visual policy: no moving connector-line, dashed-line, dotted-line or scan-line patterns in generated motion assets.
 
 ## Review Context
 
-The updated package is designed for GitHub README rendering, mobile review, HR screening and engineering portfolio review.
+The updated package is designed for GitHub README rendering, mobile review, HR screening, engineering portfolio review and seminar/exam evidence browsing.

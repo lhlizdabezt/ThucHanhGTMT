@@ -38,16 +38,16 @@ def frame(active):
     img = Image.new("RGB", (960, 360), (15, 23, 42))
     draw = ImageDraw.Draw(img)
     draw.rounded_rectangle((24, 22, 936, 338), radius=26, fill=(248, 250, 252))
-    draw.text((52, 44), "BLE Data Acquisition Lab", font=TITLE, fill=(15, 23, 42))
-    draw.text((54, 88), "AHT20 sensor data, I2C, Silicon Labs BLE SoC, UART/VCOM and SQLite logging.", font=SUB, fill=(71, 85, 105))
+    draw.text((52, 44), "BLE Sensing and RSSI Lab", font=TITLE, fill=(15, 23, 42))
+    draw.text((54, 88), "AHT20 data, Android map evidence, UART/VCOM and SQLite logging.", font=SUB, fill=(71, 85, 105))
 
     cards = [
         ("AHT20", "sensor sample", (219, 234, 254)),
         ("I2C Bus", "embedded read", (204, 251, 241)),
-        ("BLE SoC", "firmware path", (254, 249, 195)),
-        ("UART VCOM", "host transport", (254, 226, 226)),
-        ("SQLite", "Windows log", (233, 213, 255)),
-        ("LCD View", "local display", (220, 252, 231)),
+        ("BLE RSSI", "beacon evidence", (254, 249, 195)),
+        ("Android Map", "room position", (254, 226, 226)),
+        ("UART VCOM", "host transport", (233, 213, 255)),
+        ("SQLite", "Windows log", (220, 252, 231)),
     ]
     positions = [
         (52, 140, 318, 218),
@@ -64,10 +64,10 @@ def frame(active):
     snippets = [
         "temp=25.4C hum=63.1",
         "I2C read complete",
-        "BLE advertising data",
+        "RSSI beacon sample",
+        "room position mapped",
         "UART frame received",
         "SQLite insert OK",
-        "LCD update OK",
     ]
     draw.text((678, 51), snippets[active], font=MONO, fill=(125, 211, 252))
     return img

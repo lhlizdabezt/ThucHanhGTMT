@@ -1,4 +1,5 @@
 *.md text eol=lf
+*.py text eol=lf
 *.c text eol=lf
 *.h text eol=lf
 *.svg text eol=lf

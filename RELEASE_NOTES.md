@@ -1,16 +1,16 @@
-# Line-Free Visual Safety Pass - 2026-06-02
+# English GIF Visual Safety Pass - 2026-06-02
 
 ## Scope
 
-This release refreshes `ThucHanhGTMT` SVG visuals for English-facing GitHub portfolio review.
+This release refreshes the `ThucHanhGTMT` featured GIF so the profile visual is English-facing, readable and free of moving connector-line patterns.
 
 ## Changes
 
-- Replaced line-based SVG motion with card-based, line-free visual layouts.
-- Kept SVG text English and ASCII-safe.
-- Removed connector-line, dashed-line, dotted-line and scan-line patterns from generated visual assets.
-- Preserved the repository description, topics, source files and release-backed evidence model.
+- Rebuilt `assets/gtmt-data-flow.gif` as an English card-based data-flow animation.
+- Removed Vietnamese labels from the featured GIF used by the profile README.
+- Removed moving connector-line, dashed-line, dotted-line and scan-line patterns from the GIF.
+- Added a repeatable PIL render script under `scripts/render_gtmt_data_flow.py`.
 
 ## Review Context
 
-The updated visuals are designed for GitHub README rendering, mobile review and HR or engineering portfolio screening.
+The updated visual is designed for GitHub README rendering, mobile review and HR or engineering portfolio screening.

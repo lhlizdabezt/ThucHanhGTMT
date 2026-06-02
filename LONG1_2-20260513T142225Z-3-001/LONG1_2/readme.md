@@ -20,7 +20,7 @@ The development of a Bluetooth applications consist of three main steps:
 * Responding to the events raised by the Bluetooth stack
 * Implementing additional application logic
 
-These steps are covered in the following sections. To learn more about programming an SoC application, see [UG434: Silicon Labs Bluetooth ® C Application Developer's Guide for SDK v3.x](https://www.silabs.com/documents/public/user-guides/ug434-bluetooth-c-soc-dev-guide-sdk-v3x.pdf).
+These steps are covered in the following sections. To learn more about programming an SoC application, see [UG434: Silicon Labs Bluetooth (R) C Application Developer's Guide for SDK v3.x](https://www.silabs.com/documents/public/user-guides/ug434-bluetooth-c-soc-dev-guide-sdk-v3x.pdf).
 
 ## Designing the GATT Database
 
@@ -28,7 +28,7 @@ The SOC-empty example implements a basic GATT database. GATT definitions (servic
 
 ![Opening GATT Configurator](image/readme_img1.png)
 
-To learn how to use the GATT Configurator, see [UG438: GATT Configurator User’s Guide for Bluetooth SDK v3.x](https://www.silabs.com/documents/public/user-guides/ug438-gatt-configurator-users-guide-sdk-v3x.pdf).
+To learn how to use the GATT Configurator, see [UG438: GATT Configurator User's Guide for Bluetooth SDK v3.x](https://www.silabs.com/documents/public/user-guides/ug438-gatt-configurator-users-guide-sdk-v3x.pdf).
 
 ## Responding to Bluetooth Events
 
@@ -102,7 +102,7 @@ Before programming the radio board mounted on the mainboard, make sure the power
 
 [QSG169: Bluetooth SDK v3.x Quick Start Guide](https://www.silabs.com/documents/public/quick-start-guides/qsg169-bluetooth-sdk-v3x-quick-start-guide.pdf)
 
-[UG434: Silicon Labs Bluetooth ® C Application Developer's Guide for SDK v3.x](https://www.silabs.com/documents/public/user-guides/ug434-bluetooth-c-soc-dev-guide-sdk-v3x.pdf)
+[UG434: Silicon Labs Bluetooth (R) C Application Developer's Guide for SDK v3.x](https://www.silabs.com/documents/public/user-guides/ug434-bluetooth-c-soc-dev-guide-sdk-v3x.pdf)
 
 [Bluetooth Training](https://www.silabs.com/support/training/bluetooth)
 

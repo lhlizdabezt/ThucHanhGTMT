@@ -8,7 +8,7 @@
 #include <string.h>
 #include <time.h>
 #include <conio.h>
-#include "sqlite3.h" // <--- THƯ VIỆN QUAN TRỌNG
+#include "sqlite3.h" // Required SQLite library
 
 #define BUFFER_SIZE 256
 
@@ -16,24 +16,24 @@ volatile int g_sensor_period = 5000;
 volatile int g_ble_period = 500;
 volatile int is_logging_mode = 0;
 
-// --- CẤU HÌNH CỔNG COM ---
-// Đổi thành cổng COM của bạn (Ví dụ COM3, COM6...)
+// --- COM PORT CONFIGURATION ---
+// Change this value to match the board COM port, for example COM3 or COM6.
 const char* COM_PORT_NAME = "\\\\.\\COM10"; 
 
 // =============================================================
-//               PHẦN XỬ LÝ SQLITE DATABASE
+//               SQLITE DATABASE HANDLING
 // =============================================================
 
-// Hàm tạo Database và Bảng nếu chưa có
+// Create the database and table if they do not exist.
 int init_database(sqlite3 **db) {
     int rc = sqlite3_open("sensor_data.db", db);
     if (rc != SQLITE_OK) {
-        printf("Khong the mo database: %s\n", sqlite3_errmsg(*db));
-        return 0; // Lỗi
+        printf("Cannot open database: %s\n", sqlite3_errmsg(*db));
+        return 0; // Error
     }
 
     char *err_msg = 0;
-    // Tạo bảng: ID (tự tăng), Thời gian, Nhiệt độ, Độ ẩm, Chu kỳ
+    // Create table: ID, timestamp, temperature, humidity and periods.
     const char *sql = "CREATE TABLE IF NOT EXISTS SensorLog ("
                       "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
                       "Timestamp TEXT, "
@@ -44,28 +44,28 @@ int init_database(sqlite3 **db) {
 
     rc = sqlite3_exec(*db, sql, 0, 0, &err_msg);
     if (rc != SQLITE_OK) {
-        printf("SQL Error (Tao bang): %s\n", err_msg);
+        printf("SQL error (create table): %s\n", err_msg);
         sqlite3_free(err_msg);
-        return 0; // Lỗi
+        return 0; // Error
     }
-    return 1; // Thành công
+    return 1; // Success
 }
 
-// Hàm lưu dữ liệu vào Database (Thay cho save_to_csv)
+// Save data to SQLite instead of CSV.
 void save_to_sqlite(sqlite3 *db, const char* timestamp, float temp, float hum) {
     char sql[512];
     char *err_msg = 0;
 
-    // Tạo câu lệnh INSERT
+    // Build the INSERT command.
     sprintf(sql, "INSERT INTO SensorLog (Timestamp, Temperature, Humidity, SensorPeriod, BLEPeriod) "
                  "VALUES ('%s', %.2f, %.2f, %d, %d);", 
                  timestamp, temp, hum, g_sensor_period, g_ble_period);
 
-    // Thực thi lệnh
+    // Execute the command.
     int rc = sqlite3_exec(db, sql, 0, 0, &err_msg);
     
     if (rc != SQLITE_OK) {
-        printf(" -> [SQL Loi]: %s\n", err_msg);
+        printf(" -> [SQL error]: %s\n", err_msg);
         sqlite3_free(err_msg);
     } else {
         printf(" -> [Saved to DB]");
@@ -73,7 +73,7 @@ void save_to_sqlite(sqlite3 *db, const char* timestamp, float temp, float hum) {
 }
 
 // =============================================================
-//               PHẦN GIAO TIẾP UART (GIỮ NGUYÊN)
+//               UART COMMUNICATION
 // =============================================================
 
 HANDLE open_port(const char* device, unsigned long baud_rate) {
@@ -118,29 +118,29 @@ void get_timestamp(char* buf) {
 }
 
 // =============================================================
-//                       HÀM MAIN
+//                       MAIN
 // =============================================================
 
 int main() {
-    // 1. KẾT NỐI DATABASE
+    // 1. Connect to database.
     sqlite3 *db;
     if (!init_database(&db)) {
         system("pause");
         return -1;
     }
 
-    // 2. KẾT NỐI COM
+    // 2. Connect to COM port.
     HANDLE port = open_port(COM_PORT_NAME, 115200);
     if (port == INVALID_HANDLE_VALUE) {
-        printf("Loi mo cong COM: %s\n", COM_PORT_NAME);
-        sqlite3_close(db); // Nhớ đóng DB trước khi thoát
+        printf("Cannot open COM port: %s\n", COM_PORT_NAME);
+        sqlite3_close(db); // Close the database before exiting.
         system("pause");
         return -1;
     }
 
-    printf("Da ket noi Database & COM. Cho Board khoi dong (2s)...\n");
+    printf("Database and COM connected. Waiting for board boot (2s)...\n");
     Sleep(2000);
-    printf("San sang!\n");
+    printf("Ready!\n");
 
     char rx_buffer[BUFFER_SIZE];
     int rx_idx = 0;
@@ -148,29 +148,29 @@ int main() {
     DWORD bytes_read;
     char cmd_buffer[50];
 
-    uart_transmit(port, "STOP\r"); // Gửi lệnh dừng ban đầu
+    uart_transmit(port, "STOP\r"); // Send initial stop command.
 
     while (1) {
         // --- MENU ---
         if (!is_logging_mode) {
             system("cls");
-            printf("=== HE THONG GIAM SAT SQLITE ===\n");
-            printf("  1. Chu ky cam bien (%d ms)\n", g_sensor_period);
-            printf("  2. Chu ky BLE (%d ms)\n", g_ble_period);
-            printf("  R. BAT DAU (Run)\n");
-            printf("  Esc. Thoat\n");
+            printf("=== SQLITE SENSOR MONITOR ===\n");
+            printf("  1. Sensor period (%d ms)\n", g_sensor_period);
+            printf("  2. BLE period (%d ms)\n", g_ble_period);
+            printf("  R. Start logging\n");
+            printf("  Esc. Exit\n");
             printf("> ");
 
             char choice = _getch();
             if (choice == '1') {
-                printf("\nNhap ms: "); scanf("%s", cmd_buffer);
+                printf("\nEnter ms: "); scanf("%s", cmd_buffer);
                 g_sensor_period = atoi(cmd_buffer);
                 sprintf(cmd_buffer, "S:%d\r", g_sensor_period);
                 uart_transmit(port, cmd_buffer);
                 Sleep(500);
             }
             else if (choice == '2') {
-                printf("\nNhap ms: "); scanf("%s", cmd_buffer);
+                printf("\nEnter ms: "); scanf("%s", cmd_buffer);
                 g_ble_period = atoi(cmd_buffer);
                 sprintf(cmd_buffer, "B:%d\r", g_ble_period);
                 uart_transmit(port, cmd_buffer);
@@ -179,12 +179,12 @@ int main() {
             else if (choice == 'r' || choice == 'R') {
                 uart_transmit(port, "START\r");
                 is_logging_mode = 1;
-                printf("\nDang chay... Nhan 'S' de Dung.\n");
+                printf("\nRunning... Press 'S' to stop.\n");
                 Sleep(100);
             }
             else if (choice == 27) break;
         }
-        // --- CHẠY LOGGING ---
+        // --- LOGGING MODE ---
         else {
             if (ReadFile(port, &c_rx, 1, &bytes_read, NULL) && bytes_read > 0) {
                 if (c_rx == '\n' || c_rx == '\r') {
@@ -199,7 +199,7 @@ int main() {
                                 char time_buf[30];
                                 get_timestamp(time_buf);
                                 
-                                // LƯU VÀO SQLITE
+                                // Save to SQLite.
                                 save_to_sqlite(db, time_buf, temp, hum);
                             }
                         }
@@ -208,7 +208,7 @@ int main() {
                 } else if (rx_idx < BUFFER_SIZE - 1) {
                     rx_buffer[rx_idx++] = c_rx;
                 }
-                printf("%c", c_rx); // Echo ra màn hình
+                printf("%c", c_rx); // Echo to screen.
             }
 
             if (_kbhit()) {
@@ -216,14 +216,14 @@ int main() {
                 if (key == 's' || key == 'S' || key == 27) {
                     uart_transmit(port, "STOP\r");
                     is_logging_mode = 0;
-                    printf("\nDang dung...\n");
+                    printf("\nStopping...\n");
                     Sleep(1000);
                 }
             }
         }
     }
 
-    // ĐÓNG KẾT NỐI
+    // Close connections.
     sqlite3_close(db);
     CloseHandle(port);
     return 0;

@@ -32,8 +32,6 @@ def draw_card(draw, box, title, detail, active, fill):
     draw.rounded_rectangle(box, radius=18, fill=fill, outline=(226, 232, 240), width=3 if active else 1)
     draw.text((x1 + 16, y1 + 17), title, font=CARD, fill=(15, 23, 42))
     draw.text((x1 + 16, y1 + 49), detail, font=SMALL, fill=(51, 65, 85))
-    if active:
-        draw.rounded_rectangle((x1 + 16, y2 - 20, x1 + 82, y2 - 10), radius=5, fill=(15, 118, 110))
 
 
 def frame(active):

@@ -2,20 +2,20 @@
 #define LCD_DISPLAY_H
 
 #include <stdint.h>
-#include "custom_adv.h" // <-- THÊM DÒNG NÀY ĐỂ SỬA LỖI unknown type name
+#include "custom_adv.h" // Required for CustomAdv_t.
 
-// Khai báo biến sData từ app.c (cần cho BLE)
+// sData is declared in app.c and used for BLE advertising.
 extern CustomAdv_t sData;
-// Khai báo handle quảng bá
+// Advertising handle.
 extern uint8_t advertising_set_handle;
 
 /**
- * @brief Khởi tạo mô-đun LCD (DMD, GLIB).
+ * @brief Initialize the LCD module with DMD and GLIB.
  */
 void lcd_init_and_clear(void);
 
 /**
- * @brief Cập nhật màn hình LCD với dữ liệu mới.
+ * @brief Update the LCD screen with new sensor data.
  */
 void lcd_update(float temp, float hum, uint32_t sensor_period_ms);
 

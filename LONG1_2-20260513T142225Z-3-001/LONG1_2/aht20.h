@@ -5,16 +5,16 @@
 #include "sl_i2cspm.h"
 #include <stdbool.h>
 
-// Địa chỉ I2C của AHT20
+// I2C address for the AHT20 sensor.
 #define AHT20_I2C_ADDR 0x38
 
 /**
- * @brief Khởi tạo cảm biến AHT20 (gửi lệnh Calibrate).
+ * @brief Initialize the AHT20 sensor by sending the calibration command.
  */
 sl_status_t aht20_init(sl_i2cspm_t *i2cspm_handle);
 
 /**
- * @brief Đọc nhiệt độ và độ ẩm từ AHT20.
+ * @brief Read temperature and humidity from the AHT20 sensor.
  */
 sl_status_t aht20_read(sl_i2cspm_t *i2cspm_handle, float *temp, float *hum);
 

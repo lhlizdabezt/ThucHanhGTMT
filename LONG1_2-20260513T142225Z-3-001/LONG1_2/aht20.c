@@ -1,8 +1,8 @@
 #include "aht20.h"
-#include "sl_sleeptimer.h" // Cần cho hàm delay
+#include "sl_sleeptimer.h" // Required for delay calls.
 
 /**
- * @brief Khởi tạo cảm biến AHT20 (gửi lệnh Calibrate).
+ * @brief Initialize the AHT20 sensor by sending the calibration command.
  */
 sl_status_t aht20_init(sl_i2cspm_t *i2cspm_handle)
 {
@@ -10,21 +10,21 @@ sl_status_t aht20_init(sl_i2cspm_t *i2cspm_handle)
   I2C_TransferReturn_TypeDef ret;
   uint8_t cmd_calibrate[] = {0xBE, 0x08, 0x00};
 
-  seq.addr = AHT20_I2C_ADDR << 1; // Dịch trái 1 bit cho R/W
+  seq.addr = AHT20_I2C_ADDR << 1; // Shift left by one bit for R/W.
   seq.flags = I2C_FLAG_WRITE;
   seq.buf[0].data = cmd_calibrate;
   seq.buf[0].len = sizeof(cmd_calibrate);
 
   ret = I2CSPM_Transfer(i2cspm_handle, &seq);
 
-  // Chờ 10ms sau khi calibrate
+  // Wait 10 ms after calibration.
   sl_sleeptimer_delay_millisecond(10);
 
   return (ret == i2cTransferDone) ? SL_STATUS_OK : SL_STATUS_FAIL;
 }
 
 /**
- * @brief Đọc nhiệt độ và độ ẩm từ AHT20.
+ * @brief Read temperature and humidity from the AHT20 sensor.
  */
 sl_status_t aht20_read(sl_i2cspm_t *i2cspm_handle, float *temp, float *hum)
 {
@@ -34,7 +34,7 @@ sl_status_t aht20_read(sl_i2cspm_t *i2cspm_handle, float *temp, float *hum)
   uint8_t cmd_trigger[] = {0xAC, 0x33, 0x00};
   uint8_t read_data[7]; // 1 status + 2 hum + 1 bridge + 2 temp + 1 CRC
 
-  // 1. Gửi lệnh kích hoạt đo
+  // 1. Send measurement trigger command.
   seq.addr = AHT20_I2C_ADDR << 1;
   seq.flags = I2C_FLAG_WRITE;
   seq.buf[0].data = cmd_trigger;
@@ -42,22 +42,22 @@ sl_status_t aht20_read(sl_i2cspm_t *i2cspm_handle, float *temp, float *hum)
   ret = I2CSPM_Transfer(i2cspm_handle, &seq);
   if (ret != i2cTransferDone) return SL_STATUS_FAIL;
 
-  // 2. Chờ 80ms cho cảm biến đo
+  // 2. Wait 80 ms for the sensor measurement.
   sl_sleeptimer_delay_millisecond(80);
 
-  // 3. Đọc 7 byte dữ liệu
+  // 3. Read 7 bytes of sensor data.
   seq.flags = I2C_FLAG_READ;
   seq.buf[0].data = read_data;
   seq.buf[0].len = 7;
   ret = I2CSPM_Transfer(i2cspm_handle, &seq);
   if (ret != i2cTransferDone) return SL_STATUS_FAIL;
 
-  // 4. Kiểm tra bit "busy" (Bit 7 của byte 0)
+  // 4. Check the busy bit, bit 7 of byte 0.
   if ((read_data[0] & 0x80) != 0) {
-    return SL_STATUS_BUSY; // Cảm biến vẫn đang bận
+    return SL_STATUS_BUSY; // Sensor is still busy.
   }
 
-  // 5. Tính toán dữ liệu (Theo Datasheet AHT20)
+  // 5. Convert raw data according to the AHT20 datasheet.
   uint32_t raw_hum = ((uint32_t)read_data[1] << 12) |
                      ((uint32_t)read_data[2] << 4)  |
                      ((uint32_t)read_data[3] >> 4);

@@ -1,16 +1,17 @@
-# English GIF Visual Safety Pass - 2026-06-02
+# v1.2.3 - Reviewer Documentation and English Safety Pass
 
 ## Scope
 
-This release refreshes the `ThucHanhGTMT` featured GIF so the profile visual is English-facing, readable and free of moving connector-line patterns.
+This release refreshes the `ThucHanhGTMT` portfolio package with reviewer-ready English documentation, clearer run instructions, complete professional links and visual-safety checks for GitHub profile rendering.
 
 ## Changes
 
-- Rebuilt `assets/gtmt-data-flow.gif` as an English card-based data-flow animation.
-- Removed Vietnamese labels from the featured GIF used by the profile README.
-- Removed moving connector-line, dashed-line, dotted-line and scan-line patterns from the GIF.
-- Added a repeatable PIL render script under `scripts/render_gtmt_data_flow.py`.
+- Expanded the README with repository status, system flow, evidence map, local inspection steps, FAQ and contact/profile links.
+- Clarified the hardware and host dependencies for the Silicon Labs BLE SoC, AHT20 sensor, UART/VCOM path and Windows C/SQLite logger.
+- Kept SVG and GIF labels English-facing and ASCII-safe for GitHub README rendering.
+- Preserved the line-free visual policy: no moving connector-line, dashed-line, dotted-line or scan-line patterns.
+- Kept the project boundary explicit as an academic computer interfacing lab, not a production data-acquisition product.
 
 ## Review Context
 
-The updated visual is designed for GitHub README rendering, mobile review and HR or engineering portfolio screening.
+The updated package is designed for GitHub README rendering, mobile review, HR screening and engineering portfolio review.

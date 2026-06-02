@@ -21,7 +21,7 @@ void fill_adv_packet(CustomAdv_t *pData, uint8_t *pDataSize, uint8_t flags, uint
   pData->company_LO = companyID & 0xFF;
   pData->company_HI = (companyID >> 8) & 0xFF;
 
-  // Khởi tạo giá trị 0
+  // Initialize values to zero.
   pData->temp_int = 0;
   pData->temp_dec = 0;
   pData->hum_int = 0;
@@ -35,7 +35,7 @@ void fill_adv_packet(CustomAdv_t *pData, uint8_t *pDataSize, uint8_t flags, uint
   strncpy(pData->name, name, n);
   pData->len_name = 1 + n;
 
-  // Tính tổng kích thước
+  // Calculate total payload size.
   *pDataSize = 3 + (1 + pData->len_manuf) + (1 + pData->len_name);
 }
 
@@ -48,19 +48,19 @@ void start_adv(CustomAdv_t *pData, uint8_t data_size, uint8_t advertising_set_ha
   app_assert_status(sc);
 }
 
-// Hàm cập nhật 4 giá trị BCD
+// Update four BCD values.
 void update_adv_data(CustomAdv_t *pData, uint8_t data_size, uint8_t advertising_set_handle,
                      uint8_t t_int, uint8_t t_dec, uint8_t h_int, uint8_t h_dec)
 {
   sl_status_t sc;
 
-  // Cập nhật dữ liệu BCD vào gói tin
+  // Update BCD data in the packet.
   pData->temp_int = t_int;
   pData->temp_dec = t_dec;
   pData->hum_int = h_int;
   pData->hum_dec = h_dec;
 
-  // Gửi lại gói tin
+  // Send the updated packet.
   sc = sl_bt_legacy_advertiser_set_data(advertising_set_handle, 0, data_size, (const uint8_t *)pData);
 
   if (sc != SL_STATUS_OK) {

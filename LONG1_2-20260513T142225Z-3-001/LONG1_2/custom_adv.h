@@ -15,25 +15,25 @@ extern "C" {
 
 typedef struct __attribute__((packed))
 {
-  // --- Phần 1: Cờ (Flags) ---
+  // --- Part 1: Flags ---
   uint8_t len_flags;
   uint8_t type_flags;
   uint8_t val_flags;
 
-  // --- Phần 2: Dữ liệu nhà sản xuất (Manufacturer Data) ---
+  // --- Part 2: Manufacturer data ---
   uint8_t len_manuf;
   uint8_t type_manuf;
   uint8_t company_LO;
   uint8_t company_HI;
 
-  // --- SỬA ĐỔI: Dữ liệu Nhiệt độ & Độ ẩm (Dạng BCD) ---
-  // 4 byte để hiển thị rõ phần nguyên và thập phân
-  uint8_t temp_int; // Nhiệt độ phần nguyên (VD: 30)
-  uint8_t temp_dec; // Nhiệt độ phần lẻ (VD: 5)
-  uint8_t hum_int;  // Độ ẩm phần nguyên (VD: 58)
-  uint8_t hum_dec;  // Độ ẩm phần lẻ (VD: 2)
+  // --- Temperature and humidity data in BCD format ---
+  // Four bytes preserve integer and decimal parts.
+  uint8_t temp_int; // Temperature integer part, for example 30.
+  uint8_t temp_dec; // Temperature decimal part, for example 5.
+  uint8_t hum_int;  // Humidity integer part, for example 58.
+  uint8_t hum_dec;  // Humidity decimal part, for example 2.
 
-  // --- Phần 3: Tên thiết bị ---
+  // --- Part 3: Device name ---
   uint8_t len_name;
   uint8_t type_name;
   char name[NAME_MAX_LENGTH];
@@ -42,13 +42,13 @@ typedef struct __attribute__((packed))
   uint8_t data_size;
 } CustomAdv_t;
 
-// Hàm khởi tạo
+// Initialize the advertising packet.
 void fill_adv_packet(CustomAdv_t *pData, uint8_t *pDataSize, uint8_t flags, uint16_t companyID,
                      char *name);
 
 void start_adv(CustomAdv_t *pData, uint8_t data_size, uint8_t advertising_set_handle);
 
-// Hàm cập nhật nhận 4 giá trị BCD
+// Update the packet with four BCD values.
 void update_adv_data(CustomAdv_t *pData, uint8_t data_size, uint8_t advertising_set_handle,
                      uint8_t t_int, uint8_t t_dec, uint8_t h_int, uint8_t h_dec);
 

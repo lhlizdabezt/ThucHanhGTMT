@@ -1,17 +1,18 @@
-# English Portfolio Refresh
-
-## Main updates
-
-- Rewrote the public README in English for HR and engineering review.
-- Standardized the repository summary, reviewer map, evidence highlights, scope boundaries and release/tag links.
-- Preserved an evidence-first tone: clear technical nouns, bounded claims and no production ownership beyond the repository material.
-
-## Repository evidence
-
-- AHT20 sensor data acquisition through I2C.
-- BLE advertising and embedded firmware workflow on Silicon Labs hardware.
-- UART/VCOM transfer into a Windows-side C logger with SQLite storage.
+# English Visual Portfolio Refresh - 2026-06-02
 
 ## Scope
 
-Computer interfacing lab evidence. The implementation is presented as a student lab workflow, not an industrial data-acquisition product.
+This refresh keeps `ThucHanhGTMT` aligned with an English-facing engineering portfolio for HR and technical review.
+
+## Changes
+
+- Added an ASCII-safe animated SVG visual under `assets/portfolio-motion.svg`.
+- Embedded the visual in `README.md` for immediate GitHub rendering.
+- Standardized Markdown and binary asset handling through `.gitattributes`.
+- Kept the repository description evidence-first and scoped to: Computer interfacing and embedded data acquisition.
+
+## Review Context
+
+Primary stack: Silicon Labs BLE SoC, embedded C, I2C, UART/VCOM, SQLite, sensor logging.
+
+The repository remains bounded to its real artifacts and does not claim production ownership beyond what the source tree, reports, code or release assets can support.

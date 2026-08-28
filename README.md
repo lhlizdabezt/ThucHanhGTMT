@@ -16,14 +16,14 @@
 
 The repository is written for HR screening and engineering review. It keeps the project scope clear: this is a student lab and portfolio evidence package, not a commercial data-acquisition product.
 
-## Repository Status
+## Evidence at a glance
 
-| Field | Status |
+| Field | Detail |
 |---|---|
 | Repository | [github.com/lhlizdabezt/ThucHanhGTMT](https://github.com/lhlizdabezt/ThucHanhGTMT) |
 | Portfolio category | Computer interfacing, embedded data acquisition, BLE sensor logging, BLE RSSI indoor positioning |
-| Review status | Portfolio-ready academic lab snapshot |
-| Latest release | [GitHub Releases](https://github.com/lhlizdabezt/ThucHanhGTMT/releases/latest) |
+| Review scope | Academic lab snapshot with source, reports, screenshots, and visual evidence |
+| Latest release | [2026 portfolio refresh](https://github.com/lhlizdabezt/ThucHanhGTMT/releases/tag/portfolio-refresh-2026-08-29) |
 | Version tags | [Repository tags](https://github.com/lhlizdabezt/ThucHanhGTMT/tags) |
 | Visual evidence | Firmware, terminal, SQLite, beacon placement, trilateration and Android BLE map screenshots |
 | Visual policy | English README labels, ASCII-safe SVG text, no moving connector-line patterns |

@@ -1,17 +1,15 @@
-# v1.2.4 - Screenshot Evidence and Indoor Positioning Sync
+# Portfolio Refresh - August 29, 2026
 
 ## Scope
 
-This release refreshes the `ThucHanhGTMT` portfolio package with the supplied project screenshots, clearer BLE RSSI indoor-positioning context and updated visual assets for GitHub review.
+This release republishes the existing computer-interfacing evidence package with a fresh tagged source archive and removes the duplicated status-style README category.
 
-## Changes
+## Included
 
-- Added nine project screenshots under `assets/evidence/` with English-safe filenames.
-- Expanded the README visual evidence section with firmware, UART/VCOM, SQLite, beacon placement, trilateration and Android BLE map proof points.
-- Updated the project scope to include BLE RSSI indoor-positioning evidence while keeping the coursework and prototype boundary explicit.
-- Refreshed the SVG and GIF summary assets with English, ASCII-safe labels.
-- Preserved the line-free visual policy: no moving connector-line, dashed-line, dotted-line or scan-line patterns in generated motion assets.
+- Tagged source archive with EFR32 project material, C host logger, reports, deck, screenshots, and visual assets.
+- Project report PDF, Lab 6 PDF, and checked data-flow GIF included as release assets.
+- README release link now points to this immutable snapshot.
 
-## Review Context
+## Boundary
 
-The updated package is designed for GitHub README rendering, mobile review, HR screening, engineering portfolio review and seminar/exam evidence browsing.
+The package documents a student lab with AHT20 sensing, BLE, UART/VCOM, SQLite, and RSSI positioning evidence. It does not claim industrial calibration, production security, cloud telemetry, or certified position accuracy.
